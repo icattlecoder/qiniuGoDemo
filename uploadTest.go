@@ -6,7 +6,7 @@ import (
 	"github.com/qiniu/api/io"
 	"github.com/qiniu/api/rs"
 	"os"
-//	"strconv"
+	"strconv"
 )
 
 func main() {
@@ -25,10 +25,10 @@ func main() {
 		//CallbackUrl: "http://example.com",
 
 		// [string] 用于设置文件上传成功后，七牛云存储服务端向客户方的业务服务器发送回调请求的 `Content-Type`
-		CallbackBodyType: "application/x-www-form-urlencoded",
+		//CallbackBodyType: "application/x-www-form-urlencoded",
 
 		// [string] 客户方终端用户（End User）的ID，该字段可以用来标示一个文件的属主，这在一些特殊场景下（比如给终端用户上传的图片打上名字水印）非常有用。
-		Customer: "",
+		//ustomer: "",
 
 		// [string] 用于设置文件上传成功后，执行指定的预转指令。
 		// 参考 http://docs.qiniutek.com/v3/api/io/#uploadToken-asyncOps
@@ -36,10 +36,10 @@ func main() {
 
 		// [uint16] 可选值 0 或者 1，缺省为 0 。值为 1 表示 callback 传递的自定义数据中允许存在转义符号 `$(VarExpression)
 		// 参考 http://docs.qiniutek.com/v3/api/words/#VarExpression
-		Escape: 0,
+		//Escape: 0,
 
 		// [uint16] 可选值 0 或者 1, 缺省为 0. 值为 1 表示在服务端自动识别上传文件类型.
-		DetectMime: 0,
+		//DetectMime: 0,
 	}
 
 	// 生成 uploadToken, string类型
@@ -63,25 +63,27 @@ func main() {
 	}
 	key := "Monkey1.bmp"
 	var ret io.PutRet
-/*
-	for i := 0; i < 10; i++ {
+
+	for i := 0; i < 300; i++ {
+		fmt.Print("start uploading")
 		tmpkey := key + strconv.Itoa(i)
 		f, _ := os.Open(filePath)
 		err := io.Put(nil, &ret, token, tmpkey, f, extra)
-		if err == nil {
-			hash := ret.Hash
-			fmt.Print(hash)
-			f.Close()
+		if err != nil {
+		// 上传失败
+			fmt.Print("error!\n")
+			fmt.Print(err)
+			return
 		}
 	}
-*/
-	err := io.Put(nil, &ret, token, key, f, extra) // PutRet, error
-	if err != nil {
+
+	//err := io.Put(nil, &ret, token, key, f, extra) // PutRet, error
+	/*if err != nil {
 		// 上传失败
 		fmt.Print("error!\n")
 		fmt.Print(err)
 		return
-	}
+	}*/
 	// 当上传成功后, 得到的hash值
 	hash := ret.Hash
 	fmt.Print(hash)
