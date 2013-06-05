@@ -64,7 +64,7 @@ func main() {
 	key := "Monkey1.bmp"
 	var ret io.PutRet
 
-	for i := 0; i < 300; i++ {
+	for i := 0; i < 2100; i++ {
 		fmt.Print("start uploading")
 		tmpkey := key + strconv.Itoa(i)
 		f, _ := os.Open(filePath)
